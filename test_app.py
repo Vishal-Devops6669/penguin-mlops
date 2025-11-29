@@ -28,4 +28,4 @@ def test_predict_penguin():
     
     # 4. Check the Logic (Is the answer correct?)
     result = response.json()
-    assert result["species_name"] == "Gentoo"
+    assert result["species"] == "Gentoo"
