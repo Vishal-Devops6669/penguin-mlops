@@ -1,0 +1,21 @@
+name: MLOps Pipeline
+
+on: [push]  # Trigger: Run this whenever I push code
+
+jobs:
+  test_model:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.9'
+
+      - name: Install Libraries
+        run: pip install -r requirements.txt
+
+      - name: Test Training
+        run: python train.py  # Check if the training script crashes
