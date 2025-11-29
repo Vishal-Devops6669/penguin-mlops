@@ -1,21 +1,27 @@
-name: MLOps Pipeline
+name: Penguin CI Pipeline
 
-on: [push]  # Trigger: Run this whenever I push code
+on: [push]
 
 jobs:
-  test_model:
+  build-and-test:
     runs-on: ubuntu-latest
+    
     steps:
       - name: Checkout Code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Set up Python
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@v3
         with:
-          python-version: '3.9'
+          python-version: "3.9"
 
-      - name: Install Libraries
+      - name: Install Dependencies
         run: pip install -r requirements.txt
 
-      - name: Test Training
-        run: python train.py  # Check if the training script crashes
+      # The Training Check
+      - name: Test Model Training
+        run: python train.py
+
+      # --- NEW STEP: The Logic Check ---
+      - name: Run Unit Tests
+        run: pytest
