@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Penguin Predictor AI</title>
+    <style>
+        body { font-family: sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; background: #f0f2f5; }
+        .container { background: white; padding: 40px; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); width: 350px; }
+        h2 { text-align: center; color: #333; }
+        input { width: 100%; padding: 10px; margin: 10px 0; border: 1px solid #ddd; border-radius: 6px; box-sizing: border-box; }
+        button { width: 100%; padding: 12px; background: #007bff; color: white; border: none; border-radius: 6px; cursor: pointer; font-size: 16px; }
+        button:hover { background: #0056b3; }
+        #result { margin-top: 20px; text-align: center; font-weight: bold; font-size: 18px; color: #28a745; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>🐧 Penguin AI</h2>
+        <input type="number" id="bill_length" placeholder="Bill Length (mm)" value="50">
+        <input type="number" id="bill_depth" placeholder="Bill Depth (mm)" value="15">
+        <input type="number" id="flipper_length" placeholder="Flipper Length (mm)" value="200">
+        <input type="number" id="body_mass" placeholder="Body Mass (g)" value="4000">
+        <button onclick="predict()">Predict Species</button>
+        <div id="result"></div>
+    </div>
+
+    <script>
+        async function predict() {
+            const data = {
+                bill_length: parseFloat(document.getElementById('bill_length').value),
+                bill_depth: parseFloat(document.getElementById('bill_depth').value),
+                flipper_length: parseFloat(document.getElementById('flipper_length').value),
+                body_mass: parseFloat(document.getElementById('body_mass').value)
+            };
+
+            const response = await fetch('/predict', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data)
+            });
+
+            const result = await response.json();
+            document.getElementById('result').innerText = "Prediction: " + result.species;
+        }
+    </script>
+</body>
+</html>

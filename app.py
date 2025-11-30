@@ -14,11 +14,12 @@ model = joblib.load("penguin_model.joblib")
 species_map = {0: "Adelie", 1: "Chinstrap", 2: "Gentoo"}
 
 app = FastAPI()
+app.mount("/static", StaticFiles("static"), name="static")
 
 # === THIS WAS MISSING ===
 @app.get("/")
 def home():
-    return {"message": "Penguin Prediction API is functioning!"}
+    return FileResponse("static/index.html")
 # ========================
 
 @app.post("/predict")

@@ -61,3 +61,10 @@ jobs:
           context: .
           push: true
           tags: ${{ secrets.DOCKER_USERNAME }}/penguin-app:latest
+
+# ... previous step (Build and Push Docker Image) ...
+
+      # --- NEW STEP: TRIGGER RENDER DEPLOY ---
+      - name: Deploy to Render
+        run: |
+          curl ${{ secrets.RENDER_DEPLOY_HOOK }}

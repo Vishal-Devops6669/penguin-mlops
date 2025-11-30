@@ -6,3 +6,4 @@ pydantic
 joblib
 pytest
 httpx
+aiofiles

@@ -4,11 +4,12 @@ from app import app
 # 1. Create a "Test User" (Client)
 client = TestClient(app)
 
-# Test 1: Check if the API is alive
+# Updated Test 1: Check if Home Page returns HTML
 def test_read_main():
     response = client.get("/")
     assert response.status_code == 200
-    assert response.json() == {"message": "Penguin Prediction API is functioning!"}
+    # We just check if "Penguin AI" text exists in the HTML page
+    assert "Penguin AI" in response.text
 
 # Test 2: Check if the model logic is correct
 def test_predict_penguin():
