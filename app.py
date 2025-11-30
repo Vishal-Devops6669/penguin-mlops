@@ -14,7 +14,7 @@ model = joblib.load("penguin_model.joblib")
 species_map = {0: "Adelie", 1: "Chinstrap", 2: "Gentoo"}
 
 app = FastAPI()
-app.mount("/static", StaticFiles("static"), name="static")
+app.mount("/static", StaticFiles(directory="static"), name="static")
 
 # === THIS WAS MISSING ===
 @app.get("/")
